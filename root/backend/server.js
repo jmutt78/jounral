@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 const { DATABASE_URL, PORT } = require("./config");
 const thankfulRouter = require("./thankful");
+const dailyRouter = require("./daily");
 const app = express();
 const cors = require("cors");
 const passport = require("passport");
@@ -25,6 +26,7 @@ app.use(function(req, res, next) {
 });
 app.use(cors());
 app.use("/thankful", thankfulRouter);
+app.use("/goal", dailyRouter);
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 

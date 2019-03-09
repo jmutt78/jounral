@@ -18,6 +18,26 @@ thankfulkSchema.methods.serialize = function() {
   };
 };
 
-const Thankful = mongoose.model("Thankful", thankfulkSchema);
+const dailySchema = mongoose.Schema({
+  created: { type: Date, default: new Date().toLocaleDateString() },
+  userId: { type: String },
+  type: { type: String },
+  answer: { type: String },
+  completed: { type: Boolean, default: false }
+});
 
-module.exports = { Thankful };
+dailySchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    userId: this.userId,
+    created: this.created,
+    type: this.type,
+    answer: this.answer,
+    completed: this.completed
+  };
+};
+
+const Thankful = mongoose.model("Thankful", thankfulkSchema);
+const Daily = mongoose.model("Daily", dailySchema);
+
+module.exports = { Thankful, Daily };

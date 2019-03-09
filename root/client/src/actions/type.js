@@ -1,3 +1,12 @@
-export const ADD_IDEA = "ADD_IDEA";
 export const AUTH_USER = "AUTH_USER";
 export const AUTH_ERROR = "AUTH_ERROR";
+export const FETCH_THANKFULS = "FETCH_THANKFULS";
+export const FETCH_THANKFUL = "FETCH_THANKFUL";
+export const ADD_THANKFUL = "ADD_THANKFUL";
+export const EDIT_THANKFUL = "EDIT_THANKFUL";
+export const DELETE_THANKFUL = "DELETE_THANKFUL";
+export const FETCH_GOALS = "FETCH_THANKFULS";
+export const FETCH_GOAL = "FETCH_THANKFUL";
+export const ADD_GOAL = "ADD_THANKFUL";
+export const EDIT_GOAL = "EDIT_THANKFUL";
+export const DELETE_GOAL = "DELETE_THANKFUL";
