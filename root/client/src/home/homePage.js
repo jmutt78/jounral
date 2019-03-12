@@ -20,6 +20,10 @@ const styles = {
     minWidth: 275,
     margin: "25px",
     padding: "15px"
+  },
+  resultsCard: {
+    margin: "25px",
+    padding: "15px"
   }
 };
 
@@ -74,9 +78,10 @@ class Home extends Component {
                 <Goals />
               </Card>
             </Grid>
-            <Grid item xs={6} sm={6}>
+            <Grid item xs={5} sm={5}>
               <DisplayGoal />
             </Grid>
+            <Grid item xs={6} sm={6} />
           </Grid>
         )}
       </Paper>

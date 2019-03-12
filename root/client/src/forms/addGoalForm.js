@@ -5,7 +5,8 @@ import Button from "@material-ui/core/Button";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormLabel from "@material-ui/core/FormLabel";
+import * as actions from "../actions";
+import { reset } from "redux-form";
 
 class AddGoal extends React.Component {
   //Checks to see if the user has an error and displays the error
@@ -52,8 +53,13 @@ class AddGoal extends React.Component {
   };
 
   //Submits the form
-  onSubmit = formValues => {
+  onSubmit = (formValues, dispatch) => {
     this.props.onSubmit(formValues);
+    dispatch(reset("goalForm")); // requires form name
+  };
+
+  onReset = dispatch => {
+    dispatch(reset("goalForm")); // requires form name
   };
 
   render() {
@@ -62,6 +68,7 @@ class AddGoal extends React.Component {
         <form
           onSubmit={this.props.handleSubmit(this.onSubmit)}
           className="add form error"
+          name="goalForm"
         >
           <div className="form-group" role="form">
             <Field
@@ -98,7 +105,10 @@ class AddGoal extends React.Component {
             </Field>
           </div>
           <div className="buttons-together">
-            <button style={{ padding: "10px" }} variant="outlined">
+            <button
+              style={{ padding: "10px", margin: "5px" }}
+              variant="outlined"
+            >
               Submit
             </button>
           </div>
@@ -123,5 +133,6 @@ const validate = formValues => {
 //wrapper for the form and the com
 export default reduxForm({
   form: "goalForm",
-  validate
+  validate,
+  actions
 })(AddGoal);

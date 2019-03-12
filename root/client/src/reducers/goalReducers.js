@@ -11,7 +11,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         [action.payload.id]: {
-          goal: action.payload.goal,
+          goal: action.payload.answer,
           type: action.payload.type,
           completed: action.payload.completed
         }

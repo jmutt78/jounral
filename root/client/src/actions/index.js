@@ -53,7 +53,20 @@ export const fetchGoals = () => async dispatch => {
 export const fetchGoal = id => async dispatch => {
   const response = await axios.get(`${GOAL_API}/${id}`, config);
   dispatch({ type: FETCH_GOAL, payload: response.data });
+  console.log(response);
 };
+
+export const editGoal = (id, formValues) => async dispatch => {
+  let data = {
+    id: id,
+    answer: formValues.goal,
+    type: formValues.type
+  };
+  const response = await axios.put(`${GOAL_API}/${id}`, data, config);
+  history.push("/journal");
+  dispatch({ type: EDIT_GOAL, payload: response.data });
+};
+
 //-------------------Authorization-----------------------//
 export const signup = formProps => async dispatch => {
   try {

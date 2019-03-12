@@ -8,6 +8,7 @@ class Goals extends React.Component {
   //Submits the form
   onSubmit = formValues => {
     this.props.addGoal(formValues);
+    this.props.fetchGoals();
   };
 
   render() {

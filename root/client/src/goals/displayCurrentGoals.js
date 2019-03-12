@@ -3,123 +3,129 @@ import { connect } from "react-redux";
 import Card from "@material-ui/core/Card";
 import * as actions from "../actions";
 import { Link } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import IGoal from "./indyGoal.js";
+
+const styles = {
+  goalCard: {
+    paddingLeft: "15px",
+    paddingTop: "15px",
+    paddingBottom: "15px",
+    width: "500px",
+    marginTop: "5px",
+    marginBottom: "5px"
+  }
+};
 
 export class DisplayGoal extends React.Component {
   componentDidMount() {
     this.props.fetchGoals();
   }
 
-  componentDidUpdate(prevProps) {
-    console.log(this.props.goal);
-    console.log(prevProps.goal);
-    if (this.props.goal !== prevProps.goal) {
-      //this.props.fetchGoals();
-    }
-
-    // this.props.fetchGoals(goal);
-    // this.renderGoal();
-  }
   //---------------Render functions--------------------//
-  renderGoalToday() {
+  renderGoalToday(classes) {
     return this.props.goal.map((goal, index) => {
       if (goal.type === "today") {
         return (
-          <Card>
-            <div className="idea" key={index}>
-              <div className="idea-body" key={goal.id} id={goal.id}>
-                <p className="title">{goal.answer}</p>
-                <div className="rendered-idea-button" />
-              </div>
-            </div>
-          </Card>
+          <div className="idea" key={index}>
+            <Table className={classes.table}>
+              <TableHead />
+              <TableBody>
+                <TableCell align="left">
+                  <IGoal goal={goal} />
+                </TableCell>
+              </TableBody>
+            </Table>
+          </div>
         );
       }
     });
   }
 
-  renderGoalMonthly() {
+  renderGoalMonthly(classes) {
     return this.props.goal.map((goal, index) => {
       if (goal.type === "monthly") {
         return (
-          <Card>
-            <div className="idea" key={index}>
-              <div className="idea-body" key={goal.id} id={goal.id}>
-                <p className="title">{goal.answer}</p>
-                <div className="rendered-idea-button" />
-              </div>
-            </div>
-          </Card>
+          <div className="idea" key={index}>
+            <Table className={classes.table}>
+              <TableHead />
+              <TableBody>
+                <TableCell align="left">
+                  <IGoal goal={goal} />
+                </TableCell>
+              </TableBody>
+            </Table>
+          </div>
         );
       }
     });
   }
 
-  renderGoalQuarterly() {
+  renderGoalQuarterly(classes) {
     return this.props.goal.map((goal, index) => {
       if (goal.type === "quarterly") {
         return (
-          <Card>
-            <div className="idea" key={index}>
-              <div className="idea-body" key={goal.id} id={goal.id}>
-                <p className="title">{goal.answer}</p>
-                <div className="rendered-idea-button" />
-              </div>
-            </div>
-          </Card>
+          <div className="idea" key={index}>
+            <Table className={classes.table}>
+              <TableHead />
+              <TableBody>
+                <TableCell align="left">
+                  <IGoal goal={goal} />
+                </TableCell>
+              </TableBody>
+            </Table>
+          </div>
         );
       }
     });
   }
 
-  renderGoalYearly() {
+  renderGoalYearly(classes) {
     return this.props.goal.map((goal, index) => {
       if (goal.type === "year") {
         return (
-          <Card>
-            <div className="idea" key={index}>
-              <div className="idea-body" key={goal.id} id={goal.id}>
-                <p className="title">{goal.answer}</p>
-                <div className="rendered-idea-button" />
-              </div>
-            </div>
-          </Card>
+          <div className="idea" key={index}>
+            <Table className={classes.table}>
+              <TableHead />
+              <TableBody>
+                <TableCell align="left">
+                  <IGoal goal={goal} />
+                </TableCell>
+              </TableBody>
+            </Table>
+          </div>
         );
       }
     });
   }
 
-  renderButtons(goal) {
-    return (
-      <div className="render-edit">
-        <Link to={`/edit/${goal.id}`}>
-          <button className="add-button">Edit</button>
-        </Link>
-        <Link to={`/delete/${goal.id}`}>
-          <button className="delete-button">Delete</button>
-        </Link>
-      </div>
-    );
-  }
-
   render() {
+    const { classes } = this.props;
     return (
       <div>
-        <div>
-          <h4>Current Goals</h4>
-          <div>{this.renderGoalToday()}</div>
-        </div>
-        <div>
-          <h4>Monhtly Goals</h4>
-          <div>{this.renderGoalMonthly()}</div>
-        </div>
-        <div>
-          <h4>Quarterly Goals</h4>
-          <div>{this.renderGoalQuarterly()}</div>
-        </div>
-        <div>
-          <h4>Yearly Goals</h4>
-          <div>{this.renderGoalYearly()}</div>
-        </div>
+        <Card className={classes.goalCard}>
+          <h4 align="center">Current Goals</h4>
+          <div>{this.renderGoalToday(classes)}</div>
+        </Card>
+        <Card className={classes.goalCard}>
+          <h4 align="center">Monhtly Goals</h4>
+          <div>{this.renderGoalMonthly(classes)}</div>
+        </Card>
+        <Card className={classes.goalCard}>
+          <h4 align="center">Quarterly Goals</h4>
+          <div>{this.renderGoalQuarterly(classes)}</div>
+        </Card>
+        <Card className={classes.goalCard}>
+          <h4 align="center">Yearly Goals</h4>
+          <div>{this.renderGoalYearly(classes)}</div>
+        </Card>
       </div>
     );
   }
@@ -129,7 +135,9 @@ const mapStateToProps = state => {
   return { goal: Object.values(state.goal) };
 };
 
+const styleWrapper = withStyles(styles)(DisplayGoal);
+
 export default connect(
   mapStateToProps,
   actions
-)(DisplayGoal);
+)(styleWrapper);
