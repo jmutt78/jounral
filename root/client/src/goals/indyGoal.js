@@ -9,6 +9,13 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import EditGoal from "../goals/editGoal.js";
 
 import * as actions from "../actions";
 
@@ -24,6 +31,18 @@ const styles = theme => ({
 });
 
 class IGoal extends React.Component {
+  state = {
+    open: false
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
   render(goal) {
     const { classes } = this.props.goal;
     const igoal = this.props.goal;
@@ -32,10 +51,32 @@ class IGoal extends React.Component {
       <div>
         <div className="idea-body" key={igoal.id} id={igoal.id}>
           <p className="title">{igoal.answer}</p>
-          <Link to={`/edit-goal/${igoal.id}`}>
-            <button className="add-button">Edit</button>
-          </Link>
         </div>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={this.handleClickOpen}
+        >
+          Edit
+        </Button>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Edit?"}</DialogTitle>
+          <DialogContent />
+          <EditGoal goals={igoal} />
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Disagree
+            </Button>
+            <Button onClick={this.handleClose} color="primary" autoFocus>
+              Agree
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }

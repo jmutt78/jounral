@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import history from "../history";
 import { Link } from "react-router-dom";
 import * as actions from "../actions";
-import AddGoal from "../forms/addGoalForm.js";
+import AddGoalModal from "../forms/addGoalModal.js";
 import Modal from "../modal/modal.js";
 import Card from "@material-ui/core/Card";
 import PropTypes from "prop-types";
@@ -24,14 +24,11 @@ const styles = {
 
 class EditGoal extends React.Component {
   componentDidMount() {
-    this.props.fetchGoal(this.props.match.params.id);
+    this.props.fetchGoal(this.props.goals.id);
   }
 
   renderActions(classes) {
-    const { id } = this.props.match.params;
-    console.log(id);
-
-    if (!this.props.goal) {
+    if (!this.props.goals) {
       return (
         <React.Fragment>
           <div className="edit-content">
@@ -44,8 +41,8 @@ class EditGoal extends React.Component {
       <React.Fragment>
         <div className={classes.page}>
           <Card align="center" className={classes.card}>
-            <AddGoal
-              initialValues={_.pick(this.props.goal, "goal", "type")}
+            <AddGoalModal
+              initialValues={_.pick(this.props.goals, "answer", "type")}
               onSubmit={this.onSubmit}
             />
           </Card>
@@ -59,21 +56,14 @@ class EditGoal extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     const { classes } = this.props;
-    return (
-      <div className="delete-header">
-        <Modal
-          title="Delete Idea"
-          actions={this.renderActions(classes)}
-          onDismiss={() => history.push("/journal")}
-        />
-      </div>
-    );
+    return <div className="delete-header">{this.renderActions(classes)}</div>;
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return { goal: state.goal[ownProps.match.params.id] };
+const mapStateToProps = state => {
+  return { goal: state.goal };
 };
 
 EditGoal.propTypes = {
