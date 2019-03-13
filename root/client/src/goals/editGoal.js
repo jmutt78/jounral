@@ -5,7 +5,7 @@ import history from "../history";
 import { Link } from "react-router-dom";
 import * as actions from "../actions";
 import AddGoal from "../forms/addGoalForm.js";
-import Modal from "../modal/modal.js";
+
 import Card from "@material-ui/core/Card";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -27,10 +27,12 @@ class EditGoal extends React.Component {
     this.props.fetchGoal(this.props.match.params.id);
   }
 
-  renderActions(classes) {
-    const { id } = this.props.match.params;
-    console.log(id);
+  onSubmit = formValues => {
+    this.props.editGoal(this.props.match.params.id, formValues);
+  };
 
+  render() {
+    const { classes } = this.props;
     if (!this.props.goal) {
       return (
         <React.Fragment>
@@ -41,32 +43,13 @@ class EditGoal extends React.Component {
       );
     }
     return (
-      <React.Fragment>
-        <div className={classes.page}>
-          <Card align="center" className={classes.card}>
-            <AddGoal
-              initialValues={_.pick(this.props.goal, "goal", "type")}
-              onSubmit={this.onSubmit}
-            />
-          </Card>
-        </div>
-      </React.Fragment>
-    );
-  }
-
-  onSubmit = formValues => {
-    this.props.editGoal(this.props.match.params.id, formValues);
-  };
-
-  render() {
-    const { classes } = this.props;
-    return (
-      <div className="delete-header">
-        <Modal
-          title="Delete Idea"
-          actions={this.renderActions(classes)}
-          onDismiss={() => history.push("/journal")}
-        />
+      <div className={classes.page}>
+        <Card align="center" className={classes.card}>
+          <AddGoal
+            initialValues={_.pick(this.props.goal, "goal", "type")}
+            onSubmit={this.onSubmit}
+          />
+        </Card>
       </div>
     );
   }
