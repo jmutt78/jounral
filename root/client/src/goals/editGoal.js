@@ -38,16 +38,14 @@ class EditGoal extends React.Component {
       );
     }
     return (
-      <React.Fragment>
-        <div className={classes.page}>
-          <Card align="center" className={classes.card}>
-            <AddGoalModal
-              initialValues={_.pick(this.props.goals, "answer", "type")}
-              onSubmit={this.onSubmit}
-            />
-          </Card>
-        </div>
-      </React.Fragment>
+      <div className={classes.page}>
+        <Card align="center" className={classes.card}>
+          <AddGoalModal
+            initialValues={_.pick(this.props.goals, "answer", "type")}
+            onSubmit={this.onSubmit}
+          />
+        </Card>
+      </div>
     );
   }
 
