@@ -34,15 +34,23 @@ class IGoal extends React.Component {
           <p className="title">{igoal.answer}</p>
           <button
             className="add-button"
-            onClick={() => this.props.openModal(igoal.id)}
+            onClick={() => this.props.openModal("edit", { goalId: igoal.id })}
           >
             Edit
           </button>
           <button
             className="add-button"
-            onClick={() => this.props.openModal(igoal.id)}
+            onClick={() => this.props.openModal("delete", { goalId: igoal.id })}
           >
             Delete
+          </button>
+          <button
+            className="add-button"
+            onClick={() =>
+              this.props.openModal("complete", { goalId: igoal.id })
+            }
+          >
+            Complete
           </button>
         </div>
       </div>

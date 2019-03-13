@@ -8,6 +8,7 @@ import AddGoal from "../forms/addGoalForm.js";
 import Card from "@material-ui/core/Card";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
 const styles = {
   card: {
@@ -22,11 +23,8 @@ const styles = {
 };
 
 class EditGoal extends React.Component {
-  componentDidMount() {
-    // this.props.fetchGoal(this.props.goalId);
-  }
-
   onSubmit = formValues => {
+    this.props.closeModal();
     this.props.editGoal(this.props.goalId, formValues);
   };
 
@@ -47,6 +45,7 @@ class EditGoal extends React.Component {
             initialValues={_.pick(this.props.goal, "answer", "type")}
             onSubmit={this.onSubmit}
           />
+          <Button onClick={() => this.props.closeModal()}>Cancle</Button>
         </Card>
       </div>
     );

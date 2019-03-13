@@ -9,7 +9,6 @@ import Card from "@material-ui/core/Card";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-
 const styles = {
   card: {
     minWidth: 420,
@@ -22,14 +21,13 @@ const styles = {
   }
 };
 
-class DeleteGoal extends React.Component {
+class CompleteGoal extends React.Component {
   handleSubmit = () => {
     this.props.closeModal();
-    this.props.deleteGoal(this.props.goalId);
+    this.props.completeGoal(this.props.goalId);
   };
 
   render() {
-    console.log(this.props);
     const { classes } = this.props;
 
     if (!this.props.goal) {
@@ -42,7 +40,7 @@ class DeleteGoal extends React.Component {
     return (
       <div className={classes.page}>
         <Card align="center" className={classes.card}>
-          <Button onClick={this.handleSubmit}>Delete</Button>
+          <Button onClick={this.handleSubmit}>Complete</Button>
           <Button onClick={() => this.props.closeModal()}>Cancle</Button>
         </Card>
       </div>
@@ -54,10 +52,10 @@ const mapStateToProps = (state, ownProps) => {
   return { goal: state.goal[ownProps.goalId] };
 };
 
-DeleteGoal.propTypes = {
+CompleteGoal.propTypes = {
   classes: PropTypes.object.isRequired
 };
-const wrapper = withStyles(styles)(DeleteGoal);
+const wrapper = withStyles(styles)(CompleteGoal);
 
 export default connect(
   mapStateToProps,

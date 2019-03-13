@@ -15,6 +15,7 @@ import Modal from "@material-ui/core/Modal";
 import IGoal from "./indyGoal.js";
 import EditGoal from "./editGoal";
 import DeleteGoal from "./deleteGoal";
+import CompleteGoal from "./completeGoal";
 
 const styles = {
   goalCard: {
@@ -30,6 +31,8 @@ const styles = {
 export class DisplayGoal extends React.Component {
   state = {
     isModalOpen: false,
+    modalType: null,
+    modalProps: {},
     goalId: null
   };
 
@@ -45,16 +48,19 @@ export class DisplayGoal extends React.Component {
   //   // this.props.fetchGoals();
   // }
 
-  handleModalOpen = goalId => {
+  handleModalOpen = (modalType, modalProps) => {
     this.setState({
       isModalOpen: true,
-      goalId
+      modalType,
+      modalProps
     });
   };
 
   handleModalClose = () => {
     this.setState({
       isModalOpen: false,
+      modalType: null,
+      modalProps: {},
       goalId: null
     });
   };
@@ -62,7 +68,7 @@ export class DisplayGoal extends React.Component {
   //---------------Render functions--------------------//
   renderGoalToday(classes) {
     return this.props.goal.map((goal, index) => {
-      if (goal.type === "today") {
+      if (goal.type === "today" && goal.completed !== true) {
         return (
           <div className="idea" key={index}>
             <Table className={classes.table}>
@@ -81,7 +87,7 @@ export class DisplayGoal extends React.Component {
 
   renderGoalMonthly(classes) {
     return this.props.goal.map((goal, index) => {
-      if (goal.type === "monthly") {
+      if (goal.type === "monthly" && goal.completed !== true) {
         return (
           <div className="idea" key={index}>
             <Table className={classes.table}>
@@ -100,7 +106,7 @@ export class DisplayGoal extends React.Component {
 
   renderGoalQuarterly(classes) {
     return this.props.goal.map((goal, index) => {
-      if (goal.type === "quarterly") {
+      if (goal.type === "quarterly" && goal.completed !== true) {
         return (
           <div className="idea" key={index}>
             <Table className={classes.table}>
@@ -119,14 +125,14 @@ export class DisplayGoal extends React.Component {
 
   renderGoalYearly(classes) {
     return this.props.goal.map((goal, index) => {
-      if (goal.type === "year") {
+      if (goal.type === "year" && goal.completed !== true) {
         return (
           <div className="idea" key={index}>
             <Table className={classes.table}>
               <TableHead />
               <TableBody>
                 <TableCell align="left">
-                  <IGoal goal={goal} onClose={this.handleModalClose} />
+                  <IGoal goal={goal} openModal={this.handleModalOpen} />
                 </TableCell>
               </TableBody>
             </Table>
@@ -136,9 +142,23 @@ export class DisplayGoal extends React.Component {
     });
   }
 
+  renderModalChild = (modalType, modalProps) => {
+    const props = {
+      ...modalProps,
+      onClose: this.handleModalClose,
+      closeModal: this.handleModalClose
+    };
+    const modalChildren = {
+      edit: <EditGoal {...props} />,
+      delete: <DeleteGoal {...props} />,
+      complete: <CompleteGoal {...props} />
+    };
+    return modalChildren[modalType] ? modalChildren[modalType] : null;
+  };
+
   render() {
     const { classes } = this.props;
-    const { isModalOpen } = this.state;
+    const { isModalOpen, modalType, modalProps } = this.state;
     return (
       <div>
         <Card className={classes.goalCard}>
@@ -157,17 +177,9 @@ export class DisplayGoal extends React.Component {
           <h4 align="center">Yearly Goals</h4>
           <div>{this.renderGoalYearly(classes)}</div>
         </Card>
+        {/*----------Modal feature-----------------*/}
         <Modal open={isModalOpen} onClose={this.handleModalClose}>
-          <EditGoal
-            goalId={this.state.goalId}
-            onClose={this.handleModalClose}
-          />
-        </Modal>
-        <Modal open={isModalOpen} onClose={this.handleModalClose}>
-          <DeleteGoal
-            goalId={this.state.goalId}
-            onClose={this.handleModalClose}
-          />
+          {this.renderModalChild(modalType, modalProps)}
         </Modal>
       </div>
     );

@@ -1,4 +1,5 @@
 import axios from "axios";
+import _ from "lodash";
 import history from "../history";
 import { SIGNIN_API, LOGIN_API, THANKFUL_API, GOAL_API } from "../api/apis.js";
 import { config } from "../api/config.js";
@@ -14,7 +15,8 @@ import {
   FETCH_GOAL,
   ADD_GOAL,
   EDIT_GOAL,
-  DELETE_GOAL
+  DELETE_GOAL,
+  COMPLETE_GOAL
 } from "./type.js";
 
 //-------------------Journal api calls---------------------//
@@ -63,12 +65,24 @@ export const editGoal = (id, formValues) => async dispatch => {
     Completed: formValues.completed
   };
   const response = await axios.put(`${GOAL_API}/${id}`, data, config);
-  dispatch({ type: EDIT_GOAL, payload: response.data });
+  dispatch({ type: EDIT_GOAL, payload: _.pick(data, "answer", "type", "id") });
 };
 
 export const deleteGoal = id => async dispatch => {
   const response = await axios.delete(`${GOAL_API}/${id}`, config);
-  dispatch({ type: DELETE_GOAL, payload: response.data });
+  dispatch({ type: DELETE_GOAL, payload: { id } });
+};
+
+export const completeGoal = (id, formValues) => async dispatch => {
+  let data = {
+    id: id,
+    completed: true
+  };
+  const response = await axios.put(`${GOAL_API}/${id}`, data, config);
+  dispatch({
+    type: COMPLETE_GOAL,
+    payload: _.pick(data, "answer", "type", "id", "completed")
+  });
 };
 
 //-------------------Authorization-----------------------//

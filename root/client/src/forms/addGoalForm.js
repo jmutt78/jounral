@@ -80,7 +80,7 @@ class AddGoal extends React.Component {
             <Field name="type" component={this.renderGoals}>
               <FormControlLabel
                 value="today"
-                control={<Radio color="primary" />}
+                control={<Radio selected color="primary" />}
                 label="Today"
                 labelPlacement="start"
               />
