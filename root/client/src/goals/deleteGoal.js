@@ -21,7 +21,7 @@ const styles = {
   }
 };
 
-class EditGoal extends React.Component {
+class DeleteGoal extends React.Component {
   componentDidMount() {
     // this.props.fetchGoal(this.props.goalId);
   }
@@ -31,6 +31,7 @@ class EditGoal extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     const { classes } = this.props;
 
     if (!this.props.goal) {
@@ -43,10 +44,10 @@ class EditGoal extends React.Component {
     return (
       <div className={classes.page}>
         <Card align="center" className={classes.card}>
-          <AddGoal
-            initialValues={_.pick(this.props.goal, "answer", "type")}
-            onSubmit={this.onSubmit}
-          />
+          <button onClick={() => this.props.deleteGoal(this.props.goalId)}>
+            Delete
+          </button>
+          <button>Cancle</button>
         </Card>
       </div>
     );
@@ -57,10 +58,10 @@ const mapStateToProps = (state, ownProps) => {
   return { goal: state.goal[ownProps.goalId] };
 };
 
-EditGoal.propTypes = {
+DeleteGoal.propTypes = {
   classes: PropTypes.object.isRequired
 };
-const wrapper = withStyles(styles)(EditGoal);
+const wrapper = withStyles(styles)(DeleteGoal);
 
 export default connect(
   mapStateToProps,

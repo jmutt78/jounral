@@ -11,7 +11,10 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Modal from "@material-ui/core/Modal";
 import IGoal from "./indyGoal.js";
+import EditGoal from "./editGoal";
+import DeleteGoal from "./deleteGoal";
 
 const styles = {
   goalCard: {
@@ -25,9 +28,36 @@ const styles = {
 };
 
 export class DisplayGoal extends React.Component {
+  state = {
+    isModalOpen: false,
+    goalId: null
+  };
+
   componentDidMount() {
     this.props.fetchGoals();
   }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log(this.props);
+  //   console.log(prevProps);
+  //   if (prevProps.goal !== this.props.goal) {
+  //   }
+  //   // this.props.fetchGoals();
+  // }
+
+  handleModalOpen = goalId => {
+    this.setState({
+      isModalOpen: true,
+      goalId
+    });
+  };
+
+  handleModalClose = () => {
+    this.setState({
+      isModalOpen: false,
+      goalId: null
+    });
+  };
 
   //---------------Render functions--------------------//
   renderGoalToday(classes) {
@@ -39,7 +69,7 @@ export class DisplayGoal extends React.Component {
               <TableHead />
               <TableBody>
                 <TableCell align="left">
-                  <IGoal goal={goal} />
+                  <IGoal goal={goal} openModal={this.handleModalOpen} />
                 </TableCell>
               </TableBody>
             </Table>
@@ -58,7 +88,7 @@ export class DisplayGoal extends React.Component {
               <TableHead />
               <TableBody>
                 <TableCell align="left">
-                  <IGoal goal={goal} />
+                  <IGoal goal={goal} openModal={this.handleModalOpen} />
                 </TableCell>
               </TableBody>
             </Table>
@@ -77,7 +107,7 @@ export class DisplayGoal extends React.Component {
               <TableHead />
               <TableBody>
                 <TableCell align="left">
-                  <IGoal goal={goal} />
+                  <IGoal goal={goal} openModal={this.handleModalOpen} />
                 </TableCell>
               </TableBody>
             </Table>
@@ -96,7 +126,7 @@ export class DisplayGoal extends React.Component {
               <TableHead />
               <TableBody>
                 <TableCell align="left">
-                  <IGoal goal={goal} />
+                  <IGoal goal={goal} onClose={this.handleModalClose} />
                 </TableCell>
               </TableBody>
             </Table>
@@ -108,6 +138,7 @@ export class DisplayGoal extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const { isModalOpen } = this.state;
     return (
       <div>
         <Card className={classes.goalCard}>
@@ -126,6 +157,18 @@ export class DisplayGoal extends React.Component {
           <h4 align="center">Yearly Goals</h4>
           <div>{this.renderGoalYearly(classes)}</div>
         </Card>
+        <Modal open={isModalOpen} onClose={this.handleModalClose}>
+          <EditGoal
+            goalId={this.state.goalId}
+            onClose={this.handleModalClose}
+          />
+        </Modal>
+        <Modal open={isModalOpen} onClose={this.handleModalClose}>
+          <DeleteGoal
+            goalId={this.state.goalId}
+            onClose={this.handleModalClose}
+          />
+        </Modal>
       </div>
     );
   }

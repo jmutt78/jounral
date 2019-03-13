@@ -38,7 +38,7 @@ export const fetchThankful = id => async dispatch => {
 //-------------------Goal api calls---------------------//
 export const addGoal = formValues => async dispatch => {
   let data = {
-    answer: formValues.goal,
+    answer: formValues.answer,
     type: formValues.type
   };
   const response = await axios.post(GOAL_API, data, config);
@@ -53,18 +53,22 @@ export const fetchGoals = () => async dispatch => {
 export const fetchGoal = id => async dispatch => {
   const response = await axios.get(`${GOAL_API}/${id}`, config);
   dispatch({ type: FETCH_GOAL, payload: response.data });
-  console.log(response);
 };
 
 export const editGoal = (id, formValues) => async dispatch => {
   let data = {
     id: id,
-    answer: formValues.goal,
-    type: formValues.type
+    answer: formValues.answer,
+    type: formValues.type,
+    Completed: formValues.completed
   };
   const response = await axios.put(`${GOAL_API}/${id}`, data, config);
-  history.push("/journal");
   dispatch({ type: EDIT_GOAL, payload: response.data });
+};
+
+export const deleteGoal = id => async dispatch => {
+  const response = await axios.delete(`${GOAL_API}/${id}`, config);
+  dispatch({ type: DELETE_GOAL, payload: response.data });
 };
 
 //-------------------Authorization-----------------------//

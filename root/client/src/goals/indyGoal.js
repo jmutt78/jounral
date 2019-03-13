@@ -32,9 +32,18 @@ class IGoal extends React.Component {
       <div>
         <div className="idea-body" key={igoal.id} id={igoal.id}>
           <p className="title">{igoal.answer}</p>
-          <Link to={`/edit-goal/${igoal.id}`}>
-            <button className="add-button">Edit</button>
-          </Link>
+          <button
+            className="add-button"
+            onClick={() => this.props.openModal(igoal.id)}
+          >
+            Edit
+          </button>
+          <button
+            className="add-button"
+            onClick={() => this.props.openModal(igoal.id)}
+          >
+            Delete
+          </button>
         </div>
       </div>
     );
