@@ -1,17 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./modal.css";
+import Modal from "@material-ui/core/Modal";
 
-const Modal = props => {
+const Modals = props => {
   return ReactDOM.createPortal(
     <div
       onClick={props.onDismiss}
       id="modal"
       className="ui dimmer modals visible active center"
+      align="center"
     >
       <div
         onClick={e => e.stopPropagation()}
-        className="ui standard modal visible active "
+        className="ui modal visible active "
+        align="center"
       >
         <div className="actions">{props.actions}</div>
       </div>
@@ -20,4 +22,4 @@ const Modal = props => {
   );
 };
 
-export default Modal;
+export default Modals;

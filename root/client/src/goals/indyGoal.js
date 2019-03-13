@@ -9,7 +9,6 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import Modal from "../modal/modal.js";
 
 import * as actions from "../actions";
 
