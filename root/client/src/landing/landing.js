@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import LazyHero from "react-lazy-hero";
-import image from "../../assets/priscilla-du-preez-95313-unsplash.jpg";
+import image from "../assets/priscilla-du-preez-95313-unsplash.jpg";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -11,10 +11,8 @@ import PropTypes from "prop-types";
 const styles = theme => ({
   content: {
     flexGrow: 1,
-
     padding: theme.spacing.unit * 3
   },
-
   paper: {
     padding: theme.spacing.unit
   }
@@ -45,11 +43,7 @@ const Landing = props => {
               className={classes.container}
             >
               <Grid item xs={12} />
-              <Grid item xs={12}>
-                <Button variant="raised" color="primary">
-                  Login
-                </Button>
-              </Grid>
+              <Grid item xs={12} />
               <Grid item xs={12} />
             </Grid>
           </div>
