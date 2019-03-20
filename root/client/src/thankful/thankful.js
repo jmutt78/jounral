@@ -11,9 +11,10 @@ class Thankful extends React.Component {
   };
 
   render() {
+    const placeholder = "What are you thankful for today?";
     return (
       <div>
-        <AddForm onSubmit={this.onSubmit} />
+        <AddForm onSubmit={this.onSubmit} placeholder={placeholder} />
       </div>
     );
   }

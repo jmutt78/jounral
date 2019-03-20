@@ -4,25 +4,27 @@ import Card from "@material-ui/core/Card";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 //---------------components-----------------//
 
-import Thankful from "../journal/thankful.js";
+import Thankful from "../thankful/thankful.js";
+import Great from "../journal/great.js";
 import Goals from "../goals/goals.js";
 import requireAuth from "../auth/requireAuth.js";
 import DisplayGoal from "../goals/displayCurrentGoals.js";
+import DisplayCompletedGoal from "../goals/displayCompletedGoals.js";
+import DisplayJournals from "../journal/displayCurrentJournal.js";
+import DisplayPast from "../journal/displayPastJournal.js";
 
 const styles = {
   card: {
-    minWidth: 275,
-    margin: "25px",
+    margin: "15px",
     padding: "15px"
   },
   resultsCard: {
-    margin: "25px",
+    margin: "15px",
     padding: "15px"
   }
 };
@@ -48,13 +50,29 @@ class Home extends Component {
           centered
         >
           <Tab label="New Journal" />
-
           <Tab label="Past Jounral" />
           <Tab label="Current Goals" />
           <Tab label="Completed Goals" />
         </Tabs>
         {/*<------Add Jounral Component Dispaly------------>*/}
         {value === 0 && (
+          <Grid container spacing={16} className={classes.container}>
+            <Grid item xs={5} sm={6}>
+              <div className={classes.card}>
+                <Thankful />
+                <div className={classes.card} />
+                <Great />
+              </div>
+            </Grid>
+            <Grid item xs={5} sm={6}>
+              <DisplayJournals />
+            </Grid>
+            <Grid item xs={5} sm={6}>
+              <div className={classes.card} />
+            </Grid>
+          </Grid>
+        )}
+        {value === 1 && (
           <Grid
             container
             spacing={16}
@@ -64,9 +82,7 @@ class Home extends Component {
             className={classes.container}
           >
             <Grid item xs={12}>
-              <Card className={classes.card}>
-                <Thankful />
-              </Card>
+              <DisplayPast />
             </Grid>
           </Grid>
         )}
@@ -74,14 +90,28 @@ class Home extends Component {
         {value === 2 && (
           <Grid container spacing={24} className={classes.container}>
             <Grid item xs={6} sm={6}>
-              <Card className={classes.card}>
+              <div className={classes.card}>
                 <Goals />
-              </Card>
+              </div>
             </Grid>
             <Grid item xs={5} sm={5}>
               <DisplayGoal />
             </Grid>
             <Grid item xs={6} sm={6} />
+          </Grid>
+        )}
+        {value === 3 && (
+          <Grid
+            container
+            spacing={16}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            className={classes.container}
+          >
+            <Grid item xs={12}>
+              <DisplayCompletedGoal />
+            </Grid>
           </Grid>
         )}
       </Paper>

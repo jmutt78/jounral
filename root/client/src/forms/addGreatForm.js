@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { reset } from "redux-form";
 
-class AddForm extends React.Component {
+class AddGreatForm extends React.Component {
   //Checks to see if the user has an error and displays the error
   renderError({ error, touched }) {
     if (touched && error) {
@@ -21,10 +21,27 @@ class AddForm extends React.Component {
     return (
       <div>
         <TextField
-          variant="outlined"
           placeholder={this.props.placeholder}
           multiline={true}
+          variant="outlined"
           rows={1}
+          style={{ width: 400, paddingBottom: "10px" }}
+          {...input}
+        />
+        <div>{this.renderError(meta)}</div>
+      </div>
+    );
+  };
+
+  renderText = ({ input, meta }) => {
+    return (
+      <div>
+        <TextField
+          placeholder={this.props.daily}
+          multiline={true}
+          variant="outlined"
+          multiline
+          rows={4}
           style={{ width: 400 }}
           {...input}
         />
@@ -36,11 +53,11 @@ class AddForm extends React.Component {
   //Submits the form
   onSubmit = (formValues, dispatch) => {
     this.props.onSubmit(formValues);
-    dispatch(reset("thankForm")); // requires form name
+    dispatch(reset("great")); // requires form name
   };
 
   onReset = dispatch => {
-    dispatch(reset("thankForm")); // requires form name
+    dispatch(reset("great")); // requires form name
   };
   render() {
     return (
@@ -48,12 +65,17 @@ class AddForm extends React.Component {
         <form
           onSubmit={this.props.handleSubmit(this.onSubmit)}
           className="add form error"
-          name="thankForm"
+          name="great"
         >
           <div className="form-group" role="form">
             <Field
-              name="thankful"
+              name="great"
               component={this.renderInput}
+              className="text-idea"
+            />
+            <Field
+              name="daily"
+              component={this.renderText}
               className="text-idea"
             />
           </div>
@@ -70,8 +92,11 @@ class AddForm extends React.Component {
 //validates the form
 const validate = formValues => {
   const errors = {};
-  if (!formValues.thankful) {
-    errors.thankful = "Please enter what you are thankful for";
+  if (!formValues.great) {
+    errors.great = "Please enter what you are thankful for";
+  }
+  if (!formValues.daily) {
+    errors.daily = "Please enter a daily affirmation";
   }
 
   return errors;
@@ -79,6 +104,6 @@ const validate = formValues => {
 
 //wrapper for the form and the com
 export default reduxForm({
-  form: "thankForm",
+  form: "great",
   validate
-})(AddForm);
+})(AddGreatForm);

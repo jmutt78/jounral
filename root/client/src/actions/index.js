@@ -1,7 +1,13 @@
 import axios from "axios";
 import _ from "lodash";
 import history from "../history";
-import { SIGNIN_API, LOGIN_API, THANKFUL_API, GOAL_API } from "../api/apis.js";
+import {
+  SIGNIN_API,
+  LOGIN_API,
+  THANKFUL_API,
+  GOAL_API,
+  JOURNAL_API
+} from "../api/apis.js";
 import { config } from "../api/config.js";
 import {
   AUTH_USER,
@@ -16,10 +22,15 @@ import {
   ADD_GOAL,
   EDIT_GOAL,
   DELETE_GOAL,
-  COMPLETE_GOAL
+  COMPLETE_GOAL,
+  FETCH_JOURNALS,
+  FETCH_JOURNAL,
+  ADD_JOURNAL,
+  EDIT_JOURNAL,
+  DELETE_JOURNAL
 } from "./type.js";
 
-//-------------------Journal api calls---------------------//
+//-------------------Thankful api calls---------------------//
 export const addThankful = formValues => async dispatch => {
   let data = {
     answer: formValues.thankful
@@ -37,6 +48,65 @@ export const fetchThankful = id => async dispatch => {
   const response = await axios.get(`${THANKFUL_API}/${id}`, config);
   dispatch({ type: FETCH_THANKFUL, payload: response.data });
 };
+
+export const editThankful = (id, formValues) => async dispatch => {
+  let data = {
+    id: id,
+    answer: formValues.answer,
+    type: formValues.type,
+    Completed: formValues.completed
+  };
+  const response = await axios.put(`${THANKFUL_API}/${id}`, data, config);
+  dispatch({
+    type: EDIT_THANKFUL,
+    payload: _.pick(data, "answer", "type", "id")
+  });
+};
+
+export const deleteThankful = id => async dispatch => {
+  const response = await axios.delete(`${THANKFUL_API}/${id}`, config);
+  dispatch({ type: DELETE_THANKFUL, payload: { id } });
+};
+
+//-------------------journal api calls---------------------//
+export const addJournal = formValues => async dispatch => {
+  let data = {
+    daily: formValues.daily,
+    great: formValues.great
+  };
+  const response = await axios.post(JOURNAL_API, data, config);
+  dispatch({ type: ADD_JOURNAL, payload: response.data });
+};
+
+export const fetchJournals = () => async dispatch => {
+  const response = await axios.get(JOURNAL_API, config);
+  console.log(response);
+  dispatch({ type: FETCH_JOURNALS, payload: response.data });
+};
+
+export const fetchJournal = id => async dispatch => {
+  const response = await axios.get(`${JOURNAL_API}/${id}`, config);
+  dispatch({ type: FETCH_JOURNAL, payload: response.data });
+};
+
+export const editJournal = (id, formValues) => async dispatch => {
+  let data = {
+    id: id,
+    daily: formValues.daily,
+    great: formValues.great
+  };
+  const response = await axios.put(`${JOURNAL_API}/${id}`, data, config);
+  dispatch({
+    type: EDIT_JOURNAL,
+    payload: _.pick(data, "great", "daily", "id")
+  });
+};
+
+export const deleteJournal = id => async dispatch => {
+  const response = await axios.delete(`${JOURNAL_API}/${id}`, config);
+  dispatch({ type: DELETE_JOURNAL, payload: { id } });
+};
+
 //-------------------Goal api calls---------------------//
 export const addGoal = formValues => async dispatch => {
   let data = {

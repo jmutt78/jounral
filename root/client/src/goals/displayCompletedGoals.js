@@ -1,21 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as actions from "../actions";
 
+import * as actions from "../actions";
 import { withStyles } from "@material-ui/core/styles";
+
 import ListSubheader from "@material-ui/core/ListSubheader";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import StarBorder from "@material-ui/icons/StarBorder";
+import Check from "@material-ui/icons/Check";
 import Paper from "@material-ui/core/Paper";
-
 import Modal from "@material-ui/core/Modal";
 import IGoal from "./indyGoal.js";
-import EditGoal from "./editGoal";
-import DeleteGoal from "./deleteGoal";
-import CompleteGoal from "./completeGoal";
 
 const styles = {
   goalCard: {
@@ -28,45 +25,45 @@ const styles = {
   }
 };
 
-export class DisplayGoal extends React.Component {
-  state = {
-    isModalOpen: false,
-    modalType: null,
-    modalProps: {},
-    goalId: null
-  };
+export class DisplayCompletedGoal extends React.Component {
+  // state = {
+  //   isModalOpen: false,
+  //   modalType: null,
+  //   modalProps: {},
+  //   goalId: null
+  // };
 
   componentDidMount() {
     this.props.fetchGoals();
   }
 
-  handleModalOpen = (modalType, modalProps) => {
-    this.setState({
-      isModalOpen: true,
-      modalType,
-      modalProps
-    });
-  };
-
-  handleModalClose = () => {
-    this.setState({
-      isModalOpen: false,
-      modalType: null,
-      modalProps: {},
-      goalId: null
-    });
-  };
+  // handleModalOpen = (modalType, modalProps) => {
+  //   this.setState({
+  //     isModalOpen: true,
+  //     modalType,
+  //     modalProps
+  //   });
+  // };
+  //
+  // handleModalClose = () => {
+  //   this.setState({
+  //     isModalOpen: false,
+  //     modalType: null,
+  //     modalProps: {},
+  //     goalId: null
+  //   });
+  // };
 
   //---------------Render functions--------------------//
   renderGoalToday(classes) {
     return this.props.goal.map((goal, index) => {
-      if (goal.type === "today" && goal.completed !== true) {
+      if (goal.type === "today" && goal.completed !== false) {
         return (
           <div className="idea" key={index}>
             <List component="div" disablePadding>
               <ListItem className={classes.nested}>
                 <ListItemIcon>
-                  <StarBorder />
+                  <Check />
                 </ListItemIcon>
                 <IGoal goal={goal} openModal={this.handleModalOpen} />
               </ListItem>
@@ -79,13 +76,13 @@ export class DisplayGoal extends React.Component {
 
   renderGoalMonthly(classes) {
     return this.props.goal.map((goal, index) => {
-      if (goal.type === "monthly" && goal.completed !== true) {
+      if (goal.type === "monthly" && goal.completed !== false) {
         return (
           <div className="idea" key={index}>
             <List component="div" disablePadding>
               <ListItem className={classes.nested}>
                 <ListItemIcon>
-                  <StarBorder />
+                  <Check />
                 </ListItemIcon>
                 <IGoal goal={goal} openModal={this.handleModalOpen} />
               </ListItem>
@@ -98,13 +95,13 @@ export class DisplayGoal extends React.Component {
 
   renderGoalQuarterly(classes) {
     return this.props.goal.map((goal, index) => {
-      if (goal.type === "quarterly" && goal.completed !== true) {
+      if (goal.type === "quarterly" && goal.completed !== false) {
         return (
           <div className="idea" key={index}>
             <List component="div" disablePadding>
               <ListItem className={classes.nested}>
                 <ListItemIcon>
-                  <StarBorder />
+                  <Check />
                 </ListItemIcon>
                 <IGoal goal={goal} openModal={this.handleModalOpen} />
               </ListItem>
@@ -117,13 +114,13 @@ export class DisplayGoal extends React.Component {
 
   renderGoalYearly(classes) {
     return this.props.goal.map((goal, index) => {
-      if (goal.type === "year" && goal.completed !== true) {
+      if (goal.type === "year" && goal.completed !== false) {
         return (
           <div className="idea" key={index}>
             <List component="div" disablePadding>
               <ListItem className={classes.nested}>
                 <ListItemIcon>
-                  <StarBorder />
+                  <Check />
                 </ListItemIcon>
                 <IGoal goal={goal} openModal={this.handleModalOpen} />
               </ListItem>
@@ -134,23 +131,23 @@ export class DisplayGoal extends React.Component {
     });
   }
 
-  renderModalChild = (modalType, modalProps) => {
-    const props = {
-      ...modalProps,
-      onClose: this.handleModalClose,
-      closeModal: this.handleModalClose
-    };
-    const modalChildren = {
-      edit: <EditGoal {...props} />,
-      delete: <DeleteGoal {...props} />,
-      complete: <CompleteGoal {...props} />
-    };
-    return modalChildren[modalType] ? modalChildren[modalType] : null;
-  };
+  // renderModalChild = (modalType, modalProps) => {
+  //   const props = {
+  //     ...modalProps,
+  //     onClose: this.handleModalClose,
+  //     closeModal: this.handleModalClose
+  //   };
+  //   const modalChildren = {
+  //     edit: <EditGoal {...props} />,
+  //     delete: <DeleteGoal {...props} />,
+  //     complete: <CompleteGoal {...props} />
+  //   };
+  //   return modalChildren[modalType] ? modalChildren[modalType] : null;
+  // };
 
   render() {
     const { classes } = this.props;
-    const { isModalOpen, modalType, modalProps } = this.state;
+    //const { isModalOpen, modalType, modalProps } = this.state;
     return (
       <div className={classes.goalCard}>
         <Paper>
@@ -185,10 +182,11 @@ export class DisplayGoal extends React.Component {
             </List>
           </List>
         </Paper>
-        {/*----------Modal feature-----------------*/}
+
+        {/*----------Modal feature-----------------
         <Modal open={isModalOpen} onClose={this.handleModalClose}>
           {this.renderModalChild(modalType, modalProps)}
-        </Modal>
+        </Modal>*/}
       </div>
     );
   }
@@ -198,7 +196,7 @@ const mapStateToProps = state => {
   return { goal: Object.values(state.goal) };
 };
 
-const styleWrapper = withStyles(styles)(DisplayGoal);
+const styleWrapper = withStyles(styles)(DisplayCompletedGoal);
 
 export default connect(
   mapStateToProps,

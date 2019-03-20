@@ -1,27 +1,27 @@
 import _ from "lodash";
 import {
-  FETCH_THANKFUL,
-  FETCH_THANKFULS,
-  DELETE_THANKFUL,
-  EDIT_THANKFUL,
-  ADD_THANKFUL
+  FETCH_JOURNAL,
+  FETCH_JOURNALS,
+  DELETE_JOURNAL,
+  EDIT_JOURNAL,
+  ADD_JOURNAL
 } from "../actions/type.js";
 
 const INITIAL_STATE = {};
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case FETCH_THANKFULS:
+    case FETCH_JOURNALS:
       return { ...state, ..._.mapKeys(action.payload, "id") };
-    case FETCH_THANKFUL:
+    case FETCH_JOURNAL:
       return {
         ...state,
         [action.payload.id]: {
-          thankful: action.payload.thankful
+          journal: action.payload.journal
         }
       };
 
-    case ADD_THANKFUL:
+    case ADD_JOURNAL:
       return {
         ...state,
         [action.payload.id]: {
@@ -30,7 +30,7 @@ export default (state = INITIAL_STATE, action) => {
         }
       };
 
-    case EDIT_THANKFUL:
+    case EDIT_JOURNAL:
       console.log(state, "payload");
       return {
         ...state,
@@ -40,7 +40,7 @@ export default (state = INITIAL_STATE, action) => {
         }
       };
 
-    case DELETE_THANKFUL:
+    case DELETE_JOURNAL:
       return _.omit(state, action.payload);
     default:
       return state;

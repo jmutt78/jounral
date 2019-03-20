@@ -13,8 +13,8 @@ thankfulkSchema.methods.serialize = function() {
   return {
     id: this._id,
     userId: this.userId,
-    created: this._created,
-    answer: this._answer
+    created: this.created,
+    answer: this.answer
   };
 };
 
@@ -37,7 +37,25 @@ dailySchema.methods.serialize = function() {
   };
 };
 
+const greatSchema = mongoose.Schema({
+  userId: { type: String },
+  created: { type: Date, default: new Date().toLocaleDateString() },
+  daily: { type: String },
+  great: { type: String }
+});
+
+greatSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    userId: this.userId,
+    created: this.created,
+    daily: this.daily,
+    great: this.great
+  };
+};
+
 const Thankful = mongoose.model("Thankful", thankfulkSchema);
 const Daily = mongoose.model("Daily", dailySchema);
+const Great = mongoose.model("Great", greatSchema);
 
-module.exports = { Thankful, Daily };
+module.exports = { Thankful, Daily, Great };
