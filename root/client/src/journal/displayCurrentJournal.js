@@ -41,9 +41,14 @@ export class DisplayJournals extends React.Component {
         return (
           <div className="idea" key={index}>
             <div>
-              <div className="idea-body" key={journal.id} id={journal.id}>
-                <p className="title">{journal.great}</p>
-              </div>
+              <ListItem className={classes.nested}>
+                <ListItemIcon>
+                  <StarBorder />
+                </ListItemIcon>
+                <div className="idea-body" key={journal.id} id={journal.id}>
+                  <p className="title">{journal.great}</p>
+                </div>
+              </ListItem>
             </div>
           </div>
         );
@@ -67,9 +72,14 @@ export class DisplayJournals extends React.Component {
         return (
           <div key={index}>
             <div>
-              <div className="idea-body" key={journal.id} id={journal.id}>
-                <p className="title">{journal.daily}</p>
-              </div>
+              <ListItem className={classes.nested}>
+                <ListItemIcon>
+                  <StarBorder />
+                </ListItemIcon>
+                <div className="idea-body" key={journal.id} id={journal.id}>
+                  <p className="title">{journal.daily}</p>
+                </div>
+              </ListItem>
             </div>
           </div>
         );
@@ -116,7 +126,9 @@ export class DisplayJournals extends React.Component {
           <List
             component="nav"
             subheader={
-              <ListSubheader component="div">Today Journal</ListSubheader>
+              <ListSubheader disableSticky={true} component="div">
+                Today Journal
+              </ListSubheader>
             }
             className={classes.root}
           >
@@ -131,9 +143,6 @@ export class DisplayJournals extends React.Component {
             </ListItem>
             <List component="div" disablePadding>
               <ListItem className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
                 <div>{this.renderGreatToday(classes)}</div>
               </ListItem>
             </List>
@@ -142,9 +151,6 @@ export class DisplayJournals extends React.Component {
             </ListItem>
             <List component="div" disablePadding>
               <ListItem className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
                 <div>{this.renderDailyToday(classes)}</div>
               </ListItem>
             </List>

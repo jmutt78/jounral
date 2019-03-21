@@ -21,7 +21,7 @@ import DisplayPast from "../journal/displayPastJournal.js";
 const styles = {
   card: {
     margin: "15px",
-    padding: "15px"
+    padding: "10px"
   },
   resultsCard: {
     margin: "15px",
@@ -65,7 +65,9 @@ class Home extends Component {
               </div>
             </Grid>
             <Grid item xs={5} sm={6}>
-              <DisplayJournals />
+              <div className={classes.card}>
+                <DisplayJournals />
+              </div>
             </Grid>
             <Grid item xs={5} sm={6}>
               <div className={classes.card} />

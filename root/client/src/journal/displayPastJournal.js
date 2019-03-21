@@ -124,7 +124,7 @@ export class DisplayPast extends React.Component {
       if (formatedDate === thankful.created) {
         return (
           <div key={index}>
-            <List component="div" disablePadding>
+            <List disableSticky={true} component="div" disablePadding>
               <ListItem className={classes.nested}>
                 <ListItemIcon>
                   <StarBorder />
@@ -166,10 +166,14 @@ export class DisplayPast extends React.Component {
         <div className={classes.goalCard} align="center">
           {this.renderDatePicker(selectedDate, classes)}
         </div>
-        <Paper>
+        <Paper className={classes.goalCard} align="center">
           <List
             component="nav"
-            subheader={<ListSubheader component="div">Journals</ListSubheader>}
+            subheader={
+              <ListSubheader disableSticky={true} component="div">
+                Journals
+              </ListSubheader>
+            }
             className={classes.root}
           >
             <ListItem>
