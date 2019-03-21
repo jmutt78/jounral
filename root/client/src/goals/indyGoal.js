@@ -2,6 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import PopupState, {
+  bindTrigger,
+  bindMenu
+} from "material-ui-popup-state/index";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import IconButton from "@material-ui/core/IconButton";
 
 import * as actions from "../actions";
 
@@ -21,30 +30,40 @@ class IGoal extends React.Component {
     if (this.props.goal.completed !== true) {
       return (
         <div>
-          <div className="idea-body" key={igoal.id} id={igoal.id}>
-            <p className="title">{igoal.answer}</p>
-            <button
-              className="add-button"
-              onClick={() => this.props.openModal("edit", { goalId: igoal.id })}
-            >
-              Edit
-            </button>
-            <button
-              className="add-button"
-              onClick={() =>
-                this.props.openModal("delete", { goalId: igoal.id })
-              }
-            >
-              Delete
-            </button>
-            <button
-              className="add-button"
-              onClick={() =>
-                this.props.openModal("complete", { goalId: igoal.id })
-              }
-            >
-              Complete
-            </button>
+          <div>
+            <PopupState variant="popover" popupId="demo-popup-menu">
+              {popupState => (
+                <React.Fragment>
+                  <IconButton {...bindTrigger(popupState)}>
+                    <MoreVertIcon />
+                  </IconButton>
+                  {igoal.answer}
+                  <Menu {...bindMenu(popupState)}>
+                    <MenuItem
+                      onClick={() =>
+                        this.props.openModal("complete", { goalId: igoal.id })
+                      }
+                    >
+                      Complete
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() =>
+                        this.props.openModal("delete", { goalId: igoal.id })
+                      }
+                    >
+                      Delete
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() =>
+                        this.props.openModal("edit", { goalId: igoal.id })
+                      }
+                    >
+                      Edit
+                    </MenuItem>
+                  </Menu>
+                </React.Fragment>
+              )}
+            </PopupState>
           </div>
         </div>
       );

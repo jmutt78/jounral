@@ -65,9 +65,7 @@ export class DisplayGoal extends React.Component {
           <div className="idea" key={index}>
             <List component="div" disablePadding>
               <ListItem className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
+                <ListItemIcon />
                 <IGoal goal={goal} openModal={this.handleModalOpen} />
               </ListItem>
             </List>
@@ -84,9 +82,7 @@ export class DisplayGoal extends React.Component {
           <div className="idea" key={index}>
             <List component="div" disablePadding>
               <ListItem className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
+                <ListItemIcon />
                 <IGoal goal={goal} openModal={this.handleModalOpen} />
               </ListItem>
             </List>
@@ -103,9 +99,7 @@ export class DisplayGoal extends React.Component {
           <div className="idea" key={index}>
             <List component="div" disablePadding>
               <ListItem className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
+                <ListItemIcon />
                 <IGoal goal={goal} openModal={this.handleModalOpen} />
               </ListItem>
             </List>
@@ -122,9 +116,7 @@ export class DisplayGoal extends React.Component {
           <div className="idea" key={index}>
             <List component="div" disablePadding>
               <ListItem className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
+                <ListItemIcon />
                 <IGoal goal={goal} openModal={this.handleModalOpen} />
               </ListItem>
             </List>
@@ -156,7 +148,11 @@ export class DisplayGoal extends React.Component {
         <Paper>
           <List
             component="nav"
-            subheader={<ListSubheader component="div">Goals</ListSubheader>}
+            subheader={
+              <ListSubheader disableSticky={true} component="div">
+                Goals
+              </ListSubheader>
+            }
             className={classes.root}
           >
             <ListItem>

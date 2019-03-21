@@ -157,7 +157,10 @@ export class DisplayCompletedGoal extends React.Component {
             className={classes.root}
           >
             <ListItem>
-              <ListItemText primary={<h5>Current Goals</h5>} />
+              <ListItemText
+                disableSticky={true}
+                primary={<h5>Current Goals</h5>}
+              />
             </ListItem>
             <List component="div" disablePadding>
               <div>{this.renderGoalToday(classes)}</div>

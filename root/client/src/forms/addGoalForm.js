@@ -82,25 +82,25 @@ class AddGoal extends React.Component {
                 value="today"
                 control={<Radio selected color="primary" />}
                 label="Today"
-                labelPlacement="start"
+                labelPlacement="end"
               />
               <FormControlLabel
                 value="monthly"
                 control={<Radio color="primary" />}
                 label="Monthly"
-                labelPlacement="start"
+                labelPlacement="end"
               />
               <FormControlLabel
                 value="quarterly"
                 control={<Radio color="primary" />}
                 label="Quarterly"
-                labelPlacement="start"
+                labelPlacement="end"
               />
               <FormControlLabel
                 value="year"
                 control={<Radio color="primary" />}
                 label="This Year"
-                labelPlacement="start"
+                labelPlacement="end"
               />
             </Field>
           </div>
