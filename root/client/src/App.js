@@ -8,6 +8,9 @@ import Signup from "./auth/signup.js";
 import Login from "./auth/login.js";
 import Home from "./home/homePage.js";
 import EditGoal from "./goals/editGoal.js";
+import Reset from "./auth/Reset.js";
+import Forgot from "./auth/Forgot.js";
+import Confirm from "./auth/Confirm.js";
 
 class App extends Component {
   render() {
@@ -21,6 +24,9 @@ class App extends Component {
             <Route exact path="/signout" component={Signout} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
+            <Route exact path="/reset" component={Reset} />
+            <Route exact path="/forgot" component={Forgot} />
+            <Route exact path="/confirm" component={Confirm} />
             <Route exact path="/edit-goal/:id" component={EditGoal} />
           </Switch>
         </div>

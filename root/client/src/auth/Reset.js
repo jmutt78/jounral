@@ -3,17 +3,11 @@ import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import notRequireAuth from "./notRequireAuth.js";
-import { Link } from "react-router-dom";
 
 import * as actions from "../actions";
 
 const validate = values => {
   const errors = {};
-  if (!values.email) {
-    errors.email = "Required";
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = "Invalid email address";
-  }
   if (!values.password) {
     errors.password = "Required";
   } else if (values.password.length < 8) {
@@ -44,23 +38,18 @@ const renderField = ({
   </div>
 );
 
-class Login extends React.Component {
+class Reset extends React.Component {
   onSubmit = formProps => {
-    this.props.signin(formProps);
+    const token = this.props.location.search;
+    this.props.resetPassword(token, formProps);
   };
   render() {
     const { handleSubmit } = this.props;
     return (
       <div class="card">
-        <h2>Please Login</h2>
+        <h2>Enter New Password</h2>
         <form className="form-group" onSubmit={handleSubmit(this.onSubmit)}>
           <div className="login-input">
-            <Field
-              name="email"
-              type="email"
-              component={renderField}
-              label="Email"
-            />
             <Field
               name="password"
               type="password"
@@ -73,12 +62,11 @@ class Login extends React.Component {
             <div>
               <br />
               <button class="btn btn-primary" type="submit">
-                Signin!
+                Submit!
               </button>
             </div>
           </div>
         </form>
-        <Link to="/forgot">forgot password?</Link>
       </div>
     );
   }
@@ -88,12 +76,12 @@ function mapStateToProps(state) {
   return { errorMessage: state.auth.errorMessage };
 }
 
-const wrapper = notRequireAuth(Login);
+const wrapper = notRequireAuth(Reset);
 
 export default compose(
   connect(
     mapStateToProps,
     actions
   ),
-  reduxForm({ form: "signin", validate })
+  reduxForm({ form: "reset", validate })
 )(wrapper);
