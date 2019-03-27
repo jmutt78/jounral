@@ -6,12 +6,16 @@ import {
   LOGIN_API,
   THANKFUL_API,
   GOAL_API,
-  JOURNAL_API
+  JOURNAL_API,
+  RESET_API,
+  FORGOT_API,
+  COMFIRM_API
 } from "../api/apis.js";
 import { config } from "../api/config.js";
 import {
   AUTH_USER,
   AUTH_ERROR,
+  USER_SIGNUP,
   FETCH_THANKFULS,
   FETCH_THANKFUL,
   ADD_THANKFUL,
@@ -27,7 +31,10 @@ import {
   FETCH_JOURNAL,
   ADD_JOURNAL,
   EDIT_JOURNAL,
-  DELETE_JOURNAL
+  DELETE_JOURNAL,
+  USER_RESET,
+  FORGOT_RESET,
+  COMFIRM_EMAIL
 } from "./type.js";
 
 //-------------------Thankful api calls---------------------//
@@ -80,7 +87,7 @@ export const addJournal = formValues => async dispatch => {
 
 export const fetchJournals = () => async dispatch => {
   const response = await axios.get(JOURNAL_API, config);
-  console.log(response);
+
   dispatch({ type: FETCH_JOURNALS, payload: response.data });
 };
 
@@ -164,9 +171,13 @@ export const signup = formProps => async dispatch => {
       firstName: formProps.firstname,
       lastName: formProps.lastname
     });
-    dispatch({ type: AUTH_USER, payload: response.data });
-    history.push("/login");
-    alert("Success! Please Login!");
+    dispatch({ type: COMFIRM_EMAIL, payload: response.data });
+    const comfirm = await axios.post(COMFIRM_API, {
+      username: formProps.email
+    });
+    dispatch({ type: USER_SIGNUP, payload: comfirm.data });
+    history.push("/");
+    alert("Success! Please check your email!");
   } catch (e) {
     dispatch({ type: AUTH_ERROR, payload: "Email is taken" });
   }
@@ -178,17 +189,54 @@ export const signin = formProps => async dispatch => {
       username: formProps.email,
       password: formProps.password
     });
+    console.log(response);
     dispatch({ type: AUTH_USER, payload: response.data.authToken });
     localStorage.setItem("token", response.data.authToken);
     history.push("/journal");
   } catch (e) {
-    dispatch({ type: AUTH_ERROR, payload: "Invalid email or password" });
+    if (e.response.status === 403) {
+      dispatch({
+        type: AUTH_ERROR,
+        payload: "Please comfirm your account, check your email"
+      });
+    } else {
+      dispatch({ type: AUTH_ERROR, payload: "Invalid email or password" });
+    }
   }
 };
 
-export const signout = () => dispatch => {
-  localStorage.removeItem("token");
+export const resetPassword = (token, formProps) => async dispatch => {
+  console.log(RESET_API, token);
+  try {
+    const response = await axios.put(`${RESET_API}/${token}`, {
+      password: formProps.password
+    });
 
+    dispatch({ type: USER_RESET, payload: response.data });
+    history.push("/login");
+    alert("Success! Please check your email!");
+  } catch (e) {
+    dispatch({ type: AUTH_ERROR, payload: "Sorry your password did not work" });
+  }
+};
+
+export const forgortPassword = formProps => async dispatch => {
+  try {
+    console.log(FORGOT_API);
+    const response = await axios.post(FORGOT_API, {
+      username: formProps.email
+    });
+    dispatch({ type: FORGOT_RESET, payload: response.data });
+    history.push("/login");
+    alert("Success! Please check your email!");
+  } catch (e) {
+    dispatch({ type: AUTH_ERROR, payload: "Sorry your email did not work" });
+  }
+};
+
+export const signout = state => dispatch => {
+  localStorage.removeItem("token");
+  state = undefined;
   dispatch({
     type: AUTH_USER,
     payload: ""

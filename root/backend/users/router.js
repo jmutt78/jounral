@@ -1,12 +1,11 @@
 "use strict";
 const express = require("express");
 const bodyParser = require("body-parser");
-
 const { User } = require("./models");
-
 const router = express.Router();
-
 const jsonParser = bodyParser.json();
+const jwt = require("jsonwebtoken");
+const config = require("../config");
 
 router.post("/", jsonParser, (req, res) => {
   const requiredFields = ["username", "password"];
@@ -120,6 +119,35 @@ router.get("/", (req, res) => {
   return User.find()
     .then(users => res.json(users.map(user => user.serialize())))
     .catch(err => res.status(500).json({ message: "Internal server error" }));
+});
+
+router.put("/reset_password", (req, res) => {
+  try {
+    const { token } = req.query;
+    return User.hashPassword(req.body.password)
+      .then(hash => {
+        const decoded = jwt.verify(token, config.JWT_SECRET);
+        const { username } = decoded.user;
+        return User.findOneAndUpdate({ username }, { password: hash }).then(
+          user => {
+            return res.status(200).json({
+              code: 200,
+              message: "your password has been successfully reset"
+            });
+          }
+        );
+      })
+      .catch(err => {
+        return res
+          .status(500)
+          .json({ code: 500, message: "internal server error" });
+      });
+  } catch (error) {
+    return res.status(500).json({
+      code: 500,
+      message: "url seems to be expired, please try again"
+    });
+  }
 });
 
 module.exports = { router };

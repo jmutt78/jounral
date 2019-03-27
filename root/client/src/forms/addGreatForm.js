@@ -10,7 +10,14 @@ class AddGreatForm extends React.Component {
     if (touched && error) {
       return (
         <div className="idea-error">
-          <div className="header">{error}</div>
+          <div
+            id="standard-error"
+            error={true}
+            color={"red"}
+            className="header"
+          >
+            {error}
+          </div>
         </div>
       );
     }
@@ -93,7 +100,7 @@ class AddGreatForm extends React.Component {
 const validate = formValues => {
   const errors = {};
   if (!formValues.great) {
-    errors.great = "Please enter what you are thankful for";
+    errors.great = "Please enter what would make today great";
   }
   if (!formValues.daily) {
     errors.daily = "Please enter a daily affirmation";

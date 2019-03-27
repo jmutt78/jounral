@@ -4,7 +4,9 @@ const nodemailer = require("nodemailer");
 const { ADMIN_EMAIL, ADMIN_PWD } = process.env;
 
 let transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
   auth: {
     user: ADMIN_EMAIL, // generated ethereal user
     pass: ADMIN_PWD // generated ethereal password
@@ -21,6 +23,7 @@ const sendMail = async ({ to, subject, html }, res) => {
 
   //const sendMailAsync = promisify(transporter.sendMail);
   transporter.sendMail(mailOptions, err => {
+    console.log(err);
     if (err) {
       res.status(500).send({
         status: "fail",
@@ -29,7 +32,7 @@ const sendMail = async ({ to, subject, html }, res) => {
     } else {
       res.status(200).send({
         status: "success",
-        message: "Account Confirmation request succesful, check you mail!"
+        message: "Account Confirmation request successful, check you mail!"
       });
     }
   });

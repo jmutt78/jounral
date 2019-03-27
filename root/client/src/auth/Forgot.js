@@ -3,7 +3,6 @@ import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import notRequireAuth from "./notRequireAuth.js";
-import { Link } from "react-router-dom";
 
 import * as actions from "../actions";
 
@@ -13,11 +12,6 @@ const validate = values => {
     errors.email = "Required";
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = "Invalid email address";
-  }
-  if (!values.password) {
-    errors.password = "Required";
-  } else if (values.password.length < 8) {
-    errors.password = "Password has to be at least 8 characters";
   }
   return errors;
 };
@@ -44,15 +38,15 @@ const renderField = ({
   </div>
 );
 
-class Login extends React.Component {
+class Forgot extends React.Component {
   onSubmit = formProps => {
-    this.props.signin(formProps);
+    this.props.forgortPassword(formProps);
   };
   render() {
     const { handleSubmit } = this.props;
     return (
-      <div class="card">
-        <h2>Please Login</h2>
+      <div className="card">
+        <h2>Enter Your Email</h2>
         <form className="form-group" onSubmit={handleSubmit(this.onSubmit)}>
           <div className="login-input">
             <Field
@@ -61,24 +55,17 @@ class Login extends React.Component {
               component={renderField}
               label="Email"
             />
-            <Field
-              name="password"
-              type="password"
-              component={renderField}
-              label="Password"
-            />
           </div>
           <div>
             <div>{this.props.errorMessage}</div>
             <div>
               <br />
               <button class="btn btn-primary" type="submit">
-                Signin!
+                Submit!
               </button>
             </div>
           </div>
         </form>
-        <Link to="/forgot">forgot password?</Link>
       </div>
     );
   }
@@ -88,12 +75,12 @@ function mapStateToProps(state) {
   return { errorMessage: state.auth.errorMessage };
 }
 
-const wrapper = notRequireAuth(Login);
+const wrapper = notRequireAuth(Forgot);
 
 export default compose(
   connect(
     mapStateToProps,
     actions
   ),
-  reduxForm({ form: "signin", validate })
+  reduxForm({ form: "forgot", validate })
 )(wrapper);

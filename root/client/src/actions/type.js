@@ -1,6 +1,11 @@
 //---------------Auth-----------------//
 export const AUTH_USER = "AUTH_USER";
+export const USER_SIGNUP = "USER_SIGNUP";
 export const AUTH_ERROR = "AUTH_ERROR";
+export const USER_RESET = "USER_RESET";
+export const FORGOT_RESET = "FORGOT_RESET";
+export const COMFIRM_EMAIL = "COMFIRM_EMAIL";
+
 //---------------Thankful-----------------//
 export const FETCH_THANKFULS = "FETCH_THANKFULS";
 export const FETCH_THANKFUL = "FETCH_THANKFUL";
