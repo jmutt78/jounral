@@ -6,8 +6,6 @@ import { compose } from "redux";
 import notRequireAuth from "./notRequireAuth.js";
 
 import * as actions from "../actions";
-import "bootstrap/dist/css/bootstrap.css";
-import "./stlye.css";
 
 const validate = values => {
   const errors = {};
