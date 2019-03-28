@@ -4,10 +4,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
-const {
-  DATABASE_URL,
-  PORT
-} = require("./config");
+const { DATABASE_URL, PORT } = require("./config");
 const thankfulRouter = require("./thankful");
 const dailyRouter = require("./daily");
 const greatRouter = require("./great");
@@ -15,14 +12,8 @@ const app = express();
 const cors = require("cors");
 const passport = require("passport");
 const path = require("path");
-const {
-  router: usersRouter
-} = require("./users");
-const {
-  router: authRouter,
-  localStrategy,
-  jwtStrategy
-} = require("./auth");
+const { router: usersRouter } = require("./users");
+const { router: authRouter, localStrategy, jwtStrategy } = require("./auth");
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
@@ -36,7 +27,7 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(morgan("common"));
 app.use(express.json());
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -63,7 +54,7 @@ let server;
 function runServer(databaseUrl, port = PORT) {
   return new Promise((resolve, reject) => {
     mongoose.connect(
-      databaseUrl,
+      process.env.DATABASE_URLdatabaseUrl,
       err => {
         if (err) {
           return reject(err);
