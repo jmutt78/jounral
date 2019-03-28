@@ -3,6 +3,9 @@ import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import notRequireAuth from "./notRequireAuth.js";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Card from "@material-ui/core/Card";
 
 import * as actions from "../actions";
 
@@ -23,9 +26,8 @@ const renderField = ({
   meta: { touched, error, warning }
 }) => (
   <div>
-    <label>{label}</label>
     <div>
-      <input
+      <TextField
         className="form-control"
         {...input}
         placeholder={label}
@@ -45,27 +47,32 @@ class Forgot extends React.Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <div className="card">
-        <h2>Enter Your Email</h2>
-        <form className="form-group" onSubmit={handleSubmit(this.onSubmit)}>
-          <div className="login-input">
-            <Field
-              name="email"
-              type="email"
-              component={renderField}
-              label="Email"
-            />
-          </div>
-          <div>
-            <div>{this.props.errorMessage}</div>
-            <div>
-              <br />
-              <button class="btn btn-primary" type="submit">
-                Submit!
-              </button>
+      <div
+        className="card"
+        style={{ width: "100%", margin: "0 auto", padding: "100px" }}
+      >
+        <Card align="center" style={{ padding: "10px" }}>
+          <h2>Enter Your Email</h2>
+          <form className="form-group" onSubmit={handleSubmit(this.onSubmit)}>
+            <div className="login-input">
+              <Field
+                name="email"
+                type="email"
+                component={renderField}
+                label="Email"
+              />
             </div>
-          </div>
-        </form>
+            <div>
+              <div>{this.props.errorMessage}</div>
+              <div>
+                <br />
+                <Button class="btn btn-primary" type="submit">
+                  Submit!
+                </Button>
+              </div>
+            </div>
+          </form>
+        </Card>
       </div>
     );
   }
