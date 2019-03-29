@@ -24,8 +24,8 @@ const validate = values => {
   }
   if (!values.password) {
     errors.password = "Required";
-  } else if (values.password.length < 8) {
-    errors.password = "Password has to be at least 8 characters";
+  } else if (values.password.length < 10) {
+    errors.password = "Password has to be at least 10 characters";
   }
   return errors;
 };
