@@ -90,7 +90,7 @@ router.get("/confirm_email", async (req, res) => {
       `<script>
   var timeout = 1000;
   setTimeout(function () {
-     window.location = "https://my-journal-app123.herokuapp.com//confirm";
+     window.location = "https://my-journal-app123.herokuapp.com/confirm";
   }, timeout);
 </script>`
     );
