@@ -29,7 +29,6 @@ class DeleteGoal extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     const { classes } = this.props;
 
     if (!this.props.goal) {

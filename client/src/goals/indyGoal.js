@@ -81,7 +81,6 @@ class IGoal extends React.Component {
   render(goal) {
     const { classes } = this.props.goal;
     const igoal = this.props.goal;
-    console.log(this.props);
 
     return <div>{this.renderGoals(igoal)}</div>;
   }
