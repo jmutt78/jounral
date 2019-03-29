@@ -63,7 +63,12 @@ class Reset extends React.Component {
               <div>{this.props.errorMessage}</div>
               <div>
                 <br />
-                <button class="btn btn-primary" type="submit">
+                <button
+                  class="btn btn-primary"
+                  type="submit"
+                  style={{ padding: "10px" }}
+                  variant="outlined"
+                >
                   Submit!
                 </button>
               </div>

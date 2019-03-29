@@ -87,7 +87,10 @@ class AddGreatForm extends React.Component {
             />
           </div>
           <div className="buttons-together">
-            <button style={{ padding: "10px" }} variant="outlined">
+            <button
+              style={{ padding: "10px", marginTop: "10px" }}
+              variant="outlined"
+            >
               Submit
             </button>
           </div>

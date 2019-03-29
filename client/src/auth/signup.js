@@ -90,7 +90,12 @@ class Signup extends React.Component {
             <div>
               <div>{this.props.errorMessage}</div>
               <br />
-              <button className="btn btn-primary" type="submit">
+              <button
+                class="btn btn-primary"
+                type="submit"
+                style={{ padding: "10px" }}
+                variant="outlined"
+              >
                 Signup!
               </button>
             </div>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Card from "@material-ui/core/Card";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import ListSubheader from "@material-ui/core/ListSubheader";
@@ -86,7 +85,7 @@ export class DisplayPast extends React.Component {
       if (month.length < 2) month = "0" + month;
       if (day.length < 2) day = "0" + day;
       let newDates = [year, month, day].join("-");
-      let formatedDate = newDates + "T07:00:00.000Z";
+      let formatedDate = newDates + "T00:00:00.000Z";
 
       //--------------map the jounrals-----------//
       if (formatedDate === journal.created) {
@@ -118,7 +117,7 @@ export class DisplayPast extends React.Component {
       if (month.length < 2) month = "0" + month;
       if (day.length < 2) day = "0" + day;
       let newDates = [year, month, day].join("-");
-      let formatedDate = newDates + "T07:00:00.000Z";
+      let formatedDate = newDates + "T00:00:00.000Z";
 
       //--------------map the jounrals-----------//
       if (formatedDate === thankful.created) {

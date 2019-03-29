@@ -106,7 +106,7 @@ class AddGoal extends React.Component {
           </div>
           <div className="buttons-together">
             <button
-              style={{ padding: "10px", margin: "5px" }}
+              style={{ padding: "10px", marginTop: "10px" }}
               variant="outlined"
             >
               Submit
