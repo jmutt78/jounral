@@ -26,7 +26,7 @@ class App extends Component {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/reset" component={Reset} />
             <Route exact path="/forgot" component={Forgot} />
-            <Route exact path="/api/auth/confirm_email" component={Confirm} />
+            <Route exact path="/confirm" component={Confirm} />
             <Route exact path="/edit-goal/:id" component={EditGoal} />
           </Switch>
         </div>

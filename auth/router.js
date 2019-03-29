@@ -86,14 +86,14 @@ router.get("/confirm_email", async (req, res) => {
       { isConfirmed: true }
     );
     console.log("comfirmed");
-    //     res.send(
-    //       `<script>
-    //   var timeout = 1000;
-    //   setTimeout(function () {
-    //      window.location = "https://my-journal-app123.herokuapp.com/confirm";
-    //   }, timeout);
-    // </script>`
-    //     );
+    res.send(
+      `<script>
+      var timeout = 1000;
+      setTimeout(function () {
+         window.location = "https://my-journal-app123.herokuapp.com/confirm";
+      }, timeout);
+    </script>`
+    );
   } catch (err) {
     res.send("account confirmation not successfull");
   }
