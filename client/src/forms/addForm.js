@@ -58,9 +58,9 @@ class AddForm extends React.Component {
             />
           </div>
           <div className="buttons-together">
-            <button style={{ padding: "10px" }} variant="outlined">
+            <Button style={{ padding: "10px" }} variant="outlined">
               Submit
-            </button>
+            </Button>
           </div>
         </form>
       </div>

@@ -78,9 +78,17 @@ const NavBar = props => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            My Journal
+          <Typography
+            variant="h6"
+            color="inherit"
+            className={classes.grow}
+            style={{ textDecoration: "none" }}
+          >
+            <Link to="/journal" style={{ textDecoration: "none" }}>
+              My Journal
+            </Link>
           </Typography>
+
           {renderLinks()}
         </Toolbar>
       </AppBar>

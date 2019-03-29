@@ -35,8 +35,8 @@ export class DisplayJournals extends React.Component {
       if (month.length < 2) month = "0" + month;
       if (day.length < 2) day = "0" + day;
       let newDates = [year, month, day].join("-");
-      let formatedDate = newDates + "T07:00:00.000Z";
-      console.log(journal.created);
+      let formatedDate = newDates + "T00:00:00.000Z";
+
       //--------------map the jounrals-----------//
       if (formatedDate === journal.created) {
         return (
